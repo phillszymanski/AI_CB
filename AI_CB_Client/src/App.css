@@ -1,0 +1,155 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: white;
+}
+
+/* Chat styles */
+.chat-container {
+  max-width: 800px;
+  margin: 1.5rem auto;
+  text-align: left;
+}
+.messages {
+  background: linear-gradient(180deg, #111 0%, #0b0b0b 100%);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 200px;
+  max-height: 50vh;
+  overflow: auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+.message {
+  margin: 8px 0;
+  display: flex;
+}
+.message.system .message-content {
+  font-style: italic;
+  color: #aaa;
+}
+.message.user {
+  justify-content: flex-end;
+}
+.message.user .message-content {
+  background: #1e88e5;
+  color: white;
+  border-radius: 12px 12px 0 12px;
+}
+.message.assistant .message-content {
+  background: #222;
+  color: #ddd;
+  border-radius: 12px 12px 12px 0;
+}
+.message-content {
+  padding: 10px 14px;
+  max-width: 75%;
+  white-space: pre-wrap;
+}
+.input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.input-row textarea {
+  flex: 1 1 auto;
+  resize: vertical;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #0f0f0f;
+  color: #fff;
+}
+.input-actions {
+  display: flex;
+  align-items: flex-end;
+}
+.error {
+  color: salmon;
+  margin-top: 8px;
+}
+
+/* Fortune Teller styles */
+.fortune-card {
+  max-width: 720px;
+  margin: 1.5rem auto;
+  background: linear-gradient(180deg,#0b0b0b,#080808);
+  padding: 16px;
+  border-radius: 10px;
+  color: #eee;
+}
+.fortune-card .question {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.fortune-card textarea {
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px;
+  background: #0f0f0f;
+  color: #fff;
+  border: 1px solid #333;
+}
+.fortune-result {
+  background: #111;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* Typing indicator dots */
+.typing .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 3px;
+  background: #ddd;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: typing 1s infinite ease-in-out;
+}
+.typing .dot:nth-child(1) { animation-delay: 0s; }
+.typing .dot:nth-child(2) { animation-delay: 0.15s; }
+.typing .dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes typing {
+  0% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.3; }
+}

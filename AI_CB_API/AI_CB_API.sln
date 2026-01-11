@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_CB_API", "AI_CB_API.csproj", "{E32F8930-435F-3054-5201-A05089484154}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E32F8930-435F-3054-5201-A05089484154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E32F8930-435F-3054-5201-A05089484154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E32F8930-435F-3054-5201-A05089484154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E32F8930-435F-3054-5201-A05089484154}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {606764ED-81AF-49AE-916A-0422AEAAE006}
+	EndGlobalSection
+EndGlobal
