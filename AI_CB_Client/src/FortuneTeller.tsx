@@ -58,6 +58,20 @@ export default function FortuneTeller() {
     })
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      if (loading) return
+
+      // If not last question, go to next; otherwise submit
+      if (index < (questions?.length ?? 0) - 1) {
+        setIndex((i) => Math.min((questions?.length ?? 1) - 1, i + 1))
+      } else {
+        submitAnswers()
+      }
+    }
+  }
+
   async function submitAnswers() {
     setLoading(true)
     setError(null)
@@ -121,8 +135,10 @@ export default function FortuneTeller() {
         <textarea
           value={answers[index] ?? ''}
           onChange={(e) => updateAnswer(index, e.target.value)}
+          onKeyDown={handleKeyDown}
           rows={3}
           placeholder="Type your answer here"
+          disabled={loading}
         />
         <div style={{marginTop:8}}>
           <button onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0}>Back</button>

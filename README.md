@@ -1,156 +1,26 @@
 # AI_CB
+
 This is a practice project. I plan optimize, refactor, add features, etc.
-
-
-# AI_CB_API
-
-This ASP.NET Core project exposes a small controller to proxy requests to an LLM provider (OpenAI by default, or Hugging Face via configuration).
-
-## Features
-- POST `/api/openai/generate` — accepts a JSON payload with `prompt`, `model`, `maxTokens`, `temperature`.
-- Configurable provider via `AIProvider` (OpenAI or HuggingFace).
-
-## Request model
-JSON body shape accepted by the endpoint:
-
-```json
-{
-  "prompt": "What is 2+2?",
-  "model": "gpt-3.5-turbo",
-  "maxTokens": 150,
-  "temperature": 0.7
-}
-```
-
-Notes:
-- `model`, `maxTokens`, and `temperature` are optional — defaults are provided.
-- For chat models (`gpt-3.5-turbo`, `gpt-4`), the controller will call the Chat Completions endpoint automatically.
-
-## Configuration
-
-- Add API keys and provider choices to `appsettings.json` or set them as environment variables.
-
-Example `appsettings.json` snippet for OpenAI:
-
-```json
-{
-  "AIProvider": "OpenAI",
-  "OpenAI": {
-    "ApiKey": "sk-..."
-  }
-}
-```
-
-Example for Hugging Face:
-
-```json
-{
-  "AIProvider": "HuggingFace",
-  "HuggingFace": {
-    "ApiKey": "hf_..."
-  }
-}
-```
-
-Or set environment variables:
-
-- `AI_PROVIDER` = `OpenAI` or `HuggingFace`
-- `OPENAI_API_KEY` = your OpenAI key
-- `HUGGINGFACE_API_KEY` = your Hugging Face key
-
-## Run locally
-
-Start the app from the repository root:
-
-```bash
-dotnet run --project AI_CB_API.csproj
-```
-
-By default Kestrel is configured to listen on localhost:5010 (HTTPS). You can change this in `Program.cs`.
-
-## Example PowerShell requests
-
-OpenAI (default provider):
-
-```powershell
-$body = @{ prompt = "What is 2+2?"; model = "gpt-3.5-turbo" } | ConvertTo-Json
-Invoke-RestMethod -Uri "https://localhost:5010/api/openai/generate" -Method POST -ContentType "application/json" -Body $body
-```
-
-Hugging Face (when `AIProvider` is `HuggingFace`):
-
-```powershell
-$body = @{ inputs = "What is 2+2?" } | ConvertTo-Json
-Invoke-RestMethod -Uri "https://localhost:5010/api/openai/generate" -Method POST -ContentType "application/json" -Body $body
-```
-
-Note: The controller maps the incoming request into the appropriate remote API call. For Hugging Face you may need to adapt parameters depending on the model you select.
-
-## Troubleshooting
-
-- 401 Unauthorized: ensure the correct API key is provided in config or environment variables.
-- 404 Not Found: ensure `AIProvider` is correct and that the controller is using the right endpoint for the selected model (chat vs completions). Check console logs for the exact outgoing URL and payload.
-- Quota errors: OpenAI usage requires billing/credits. Consider switching to Hugging Face or a local model if you need a free alternative.
-
-
-# AI_CB Client (React + Vite)
-
-This is the React client for the AI_CB project (Vite + React + TypeScript).
-
-Quick start
-
-Prerequisites:
-- Node.js (>=18) and npm
-# AI_CB
-
-Small sample app demonstrating a frontend (React + Vite) and a backend (ASP.NET Core)
-that proxies requests to an LLM provider (OpenAI by default, Hugging Face optional).
 
 ---
 
 ## AI_CB API (AI_CB_API)
 
-This ASP.NET Core project exposes endpoints that forward requests to an LLM provider.
+This ASP.NET Core project exposes endpoints used by the client.
 
-### Features
+### Available endpoints
 
-- `POST /api/openai/generate` — accepts a JSON payload with `prompt`, `model`, `maxTokens`, `temperature` and returns the model response.
-- Configurable provider via the `AIProvider` setting (`OpenAI` or `HuggingFace`).
-
-### Request model
-
-Example request JSON:
-
-```json
-{
-  "prompt": "What is 2+2?",
-  "model": "gpt-3.5-turbo",
-  "maxTokens": 150,
-  "temperature": 0.7
-}
-```
-
-Notes:
-- `model`, `maxTokens`, and `temperature` are optional — defaults are provided.
-- For chat models (`gpt-3.5-turbo`, `gpt-4`) the controller uses the chat-completions shape.
+- `GET /api/fortune/questions` — returns three random questions for the Fortune Teller UI.
+- `POST /api/fortune/generate` — accepts `{ answers: string[] }` and returns a generated fortune.
 
 ### Configuration
 
-Add API keys to `appsettings.json` or set environment variables. Example snippet for OpenAI:
+Add AI provider keys to `appsettings.json` or use environment variables if you want the server to call an LLM provider for fortunes (OpenAI or Hugging Face). Example:
 
 ```json
 {
   "AIProvider": "OpenAI",
   "OpenAI": { "ApiKey": "sk-..." }
-}
-```
-
-For Hugging Face:
-
-```json
-{
-  "AIProvider": "HuggingFace",
-  "HuggingFace": { "ApiKey": "hf_..." }
 }
 ```
 
@@ -161,27 +31,17 @@ Environment variables supported:
 
 ### Run locally
 
-Start the API from the repository root:
-
 ```bash
 dotnet run --project AI_CB_API.csproj
 ```
 
 The API listens on `https://localhost:5010` by default (see `Program.cs`).
 
-### Troubleshooting
-
-- 401 Unauthorized: ensure the API key is configured.
-- 404 Not Found: check `AIProvider` and console logging for outgoing URLs.
-
 ---
 
 ## Client (AI_CB_Client)
 
-React + Vite frontend that demonstrates:
-
-- Chat with the AI (uses `/api/openai/generate`).
-- Fortune Teller: asks three random questions and requests a fortune from `/api/fortune/generate`.
+React + Vite frontend. The Fortune Teller UI uses the endpoints above. The chat UI that previously used `/api/openai/generate` requires the OpenAI controller; it's not available in this branch.
 
 ### Run the client
 
@@ -192,16 +52,4 @@ npm run dev
 ```
 
 Notes:
-- During development Vite proxies `/api` to the backend (see `vite.config.ts`). If you run into HTML being returned from API calls, make sure the backend is running and the proxy target matches the API scheme/port.
-
----
-
-## Endpoints
-
-- `POST /api/openai/generate` — forward to AI provider and return model response
-- `GET /api/fortune/questions` — get three random questions
-- `POST /api/fortune/generate` — send answers and receive a fortune
-
----
-
-If you want, I can add an example `appsettings.Development.json` and CI instructions.
+- Vite proxies `/api` to the backend during development (see `vite.config.ts`). If API calls return HTML, ensure the backend is running and proxy target matches the API scheme/port.

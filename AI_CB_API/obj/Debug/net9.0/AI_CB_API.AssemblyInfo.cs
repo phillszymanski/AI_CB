@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AI_CB_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10af05e12bb64bf4b2abb9614e16f1d2d1aad245")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9738be35ff45c379733f73abadbd02e62b76012")]
 [assembly: System.Reflection.AssemblyProductAttribute("AI_CB_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AI_CB_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
